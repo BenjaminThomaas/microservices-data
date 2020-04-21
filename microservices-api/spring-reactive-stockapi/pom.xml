@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>spring-reative-mongoapi</artifactId>
+    <artifactId>spring-reative-stockapi</artifactId>
 
     <dependencies>
 
