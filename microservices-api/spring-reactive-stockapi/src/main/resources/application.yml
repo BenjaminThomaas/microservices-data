@@ -1,10 +1,10 @@
 spring:
   application:
-    name: spring-rective-mongoapi
+    name: spring-reactive-stockapi
 
   data:
     mongodb:
       uri: mongodb://192.168.99.100:27017,192.168.99.100:27017
-      database: bdtest
+      database: shop
 server:
  port: 8083
