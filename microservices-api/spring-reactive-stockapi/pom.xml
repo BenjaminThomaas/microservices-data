@@ -11,6 +11,17 @@
     </parent>
     <artifactId>spring-reative-stockapi</artifactId>
 
+<properties>
+
+<spring-boot.version>2.2.5.RELEASE</spring-boot.version>
+<spring-kafka.version>2.3.6.RELEASE</spring-kafka.version>
+<kafka-client.version>2.3.1</kafka-client.version>
+<slf4j-api.version>1.7.30</slf4j-api.version>
+<kafka-stremas.version>2.3.1</kafka-stremas.version>
+<lombok.version>1.18.12</lombok.version>
+	</properties>
+
+
     <dependencies>
 
         <dependency>
@@ -36,7 +47,47 @@
             <artifactId>jsoup</artifactId>
             <version>1.11.3</version>
         </dependency>
+	<!-- SPRING -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>${spring-kafka.version}</version>
+		</dependency>
+
+
+		<!-- KAFKA -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>${kafka-client.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
+		</dependency>
+
+
+
+		<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-streams</artifactId>
+			<version>${kafka-stremas.version}</version>
+</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+
+		</dependency>
 
 
     </dependencies>

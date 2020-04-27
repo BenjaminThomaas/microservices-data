@@ -1,5 +1,9 @@
 package com.inti.formation.shop.api.service;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,11 +32,24 @@ public class StockServiceImpl implements IStockService{
 	//Methodes find spéciales
 	
 	@Override
-	public Flux<Stock> searchId(final Long _id) {
+	public Mono<Stock> searchId(final Long _id) {
 		// TODO Auto-generated method stub
-		return null;
+		return stockRepo.findById(_id);
 	}
 
+	
+	
+	public Flux<Stock> searchStockByMagasin( final String magasin){
+		return stockRepo.findByMagasin(magasin);
+	}
+	
+	
+	public Flux<Stock> searchActiveByDate ( final Date date) {
+		
+		return stockRepo.searchActifByDate(true, date);
+	}
+	
+	
 	@Override
 	public Flux<Stock> getStocks() {
 		// TODO Auto-generated method stub
@@ -45,4 +62,14 @@ public class StockServiceImpl implements IStockService{
 		return stockRepo.save(s);
 	}
 
-}
+
+	public Mono<Void> deleteById(final Long _id) {
+		// TODO Auto-generated method stub
+		return stockRepo.deleteById(_id);
+	}
+
+
+
+	}
+
+

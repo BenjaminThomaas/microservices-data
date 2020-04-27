@@ -8,3 +8,20 @@ spring:
       database: shop
 server:
  port: 8083
+ 
+ # kafka
+kafka:
+  bootstrap-server: 192.168.99.100:29092
+  acks: all
+  retries: 2147483647  # retry=2147483647 = met nb de retry que peut effectuer
+              # jsuque au time out(mieuxx vaut mettre cette conste)
+  batch-size: 131072
+  buffer-memory: 80000000
+  client-id: producerEvent
+  idempotence: true
+  compression-type: snappy
+  topic-name: stocksupp-v1
+  user: producer-user
+  password: producer-pwd
+
+schedule-time: 300
