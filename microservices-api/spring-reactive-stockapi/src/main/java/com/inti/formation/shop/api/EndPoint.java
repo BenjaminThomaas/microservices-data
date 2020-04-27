@@ -139,18 +139,25 @@ public class EndPoint {
     @RequestMapping(value = "/DeleteStock/{_id}")
 
     public Mono<Void> deleteBy_id(@RequestParam(required = true, name = "_id") Long _id ) {
-        log.info("Searching  {} ",_id );
-        return stockservice.deleteById(_id)
+ //       log.info("Searching  {} ",_id );
+//        return stockservice.deleteById(_id)
+//
+//                // uses of doNext
+//
+//                .doOnNext(stock -> log.info(" ;) is deleted"));
+//        
+//        ProducerRecord<String, Stock> producerRecord = new ProducerRecord<>(TOPIC, stockservice.searchId(_id) ,
+//        		stockservice.deleteById(_id));
+//	    kafkaTemplate.send(producerRecord);
+//}
+        Mono.just(stock)
+        .map(data->
+                {
 
-                // uses of doNext
-
-                .doOnNext(stock -> log.info(" ;) is deleted"));
-        
-        ProducerRecord<String, Stock> producerRecord = new ProducerRecord<>(TOPIC, stockservice.searchId(_id) ,
-        		stockservice.deleteById(_id));
-	    kafkaTemplate.send(producerRecord);
-}
-    
+                    return stockservice.delete( data).subscribe().toString();
+                    }
+                };
+    }
     
    
-}
+
