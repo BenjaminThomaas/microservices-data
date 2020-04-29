@@ -69,6 +69,13 @@ public class StockServiceImpl implements IStockService{
 	}
 
 
+	@Override
+	public Mono<Void> delete(final Stock stock) {
+		// TODO Auto-generated method stub
+		return stockRepo.delete(stock);
+	}
+
+
 
 	}
 

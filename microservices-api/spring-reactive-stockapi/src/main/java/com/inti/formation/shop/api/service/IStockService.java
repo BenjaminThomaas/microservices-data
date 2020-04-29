@@ -16,5 +16,7 @@ public interface IStockService {
 	public Mono<Stock> update(Stock s);
 	
 	public Mono<Void> deleteById (Long _id);
+	
+	public Mono<Void> delete(Stock stock);
 
 }

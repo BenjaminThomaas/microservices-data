@@ -12,7 +12,6 @@ import lombok.Data;
 
 @Data
 @Document(collection = "stock")
-
 public class Stock implements Serializable{/**
 	 * 
 	 */

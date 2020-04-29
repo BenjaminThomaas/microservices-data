@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.streams.StreamsConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+
+import com.inti.formation.shop.api.repository.model.Stock;
 
 public class KafkaConfiguration {
 	  @Value("${kafka.bootstrap-server}")
@@ -41,11 +44,11 @@ public class KafkaConfiguration {
 	    @Value("${kafka.password}")
 	    private String password;
 
-	    @Value("${kafka.max-in-flight-requests-per-connection}")
-	    private String maxRequestConnection;
-	    
-	    @Value("${kafka.auto-register-schemas}")
-	    private String autoRegisterSchemas;
+//	    @Value("${kafka.max-in-flight-requests-per-connection}")
+//	    private String maxRequestConnection;
+//	    
+//	    @Value("${kafka.auto-register-schemas}")
+//	    private String autoRegisterSchemas;
 	    
 	    
 	    
@@ -66,7 +69,7 @@ public class KafkaConfiguration {
 		//j'affect la valuer des varible def dans fichier app yml au producer 
 		
 		
-		conf.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		conf.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
 		// on a need de spé la classe de sérialization de clé (ici mis string)(string,avro ou json)
 		
 		
@@ -83,7 +86,7 @@ public class KafkaConfiguration {
 		
 		
 		//****************************************************
-		conf.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, maxRequestConnection);
+//		conf.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, maxRequestConnection);
 		
 		
 		
@@ -124,7 +127,7 @@ public class KafkaConfiguration {
 	    
 	    
 	    @Bean
-	    public ProducerFactory<String, EventStock> producerFactory() {
+	    public ProducerFactory<Long, Stock> producerFactory() {
 		return new DefaultKafkaProducerFactory<>(producerConfigs());
 	    }
 
@@ -138,7 +141,7 @@ public class KafkaConfiguration {
 	    
 	    
 	    @Bean
-	    public KafkaTemplate<String, EventStock> kafkaTemplate() {
+	    public KafkaTemplate<Long, Stock> kafkaTemplate() {
 		return new KafkaTemplate<>(producerFactory());
 	    }
 

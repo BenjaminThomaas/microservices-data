@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.inti.formation.shop.api.producer.EventStock;
+import com.inti.formation.shop.api.producer.KafkaConfiguration;
 import com.inti.formation.shop.api.repository.model.Stock;
 import com.inti.formation.shop.api.rest.bean.StockRequest;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
@@ -44,7 +45,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @RequestMapping(value= "/v1/shop")
 @Slf4j
-public class EndPoint {
+public class EndPoint extends KafkaConfiguration{
 
 	@Autowired
 	StockServiceImpl stockservice;
@@ -55,7 +56,7 @@ public class EndPoint {
     
 
     @Autowired
-    private KafkaTemplate<String, EventStock> kafkaTemplate;
+    private KafkaTemplate<Long, Stock> kafkaTemplate;
 
     @Value("${kafka.compression-type}")
     private String compressionType;
@@ -135,29 +136,52 @@ public class EndPoint {
     }
     
     
-    @DeleteMapping
-    @RequestMapping(value = "/DeleteStock/{_id}")
-
-    public Mono<Void> deleteBy_id(@RequestParam(required = true, name = "_id") Long _id ) {
- //       log.info("Searching  {} ",_id );
-//        return stockservice.deleteById(_id)
+//    @DeleteMapping
+//    @RequestMapping(value = "/DeleteStock/{_id}")
+//    public Mono<Void> deleteBy_id(@RequestParam(required = true, name = "_id") Long _id ) {
+//        log.info("Searching  {} ",_id );
+//        
+//        Mono <EventStock> stock = stockservice.searchId(_id);
 //
 //                // uses of doNext
-//
-//                .doOnNext(stock -> log.info(" ;) is deleted"));
 //        
-//        ProducerRecord<String, Stock> producerRecord = new ProducerRecord<>(TOPIC, stockservice.searchId(_id) ,
-//        		stockservice.deleteById(_id));
-//	    kafkaTemplate.send(producerRecord);
+//        ProducerRecord<Long, Stock> producerRecord = new ProducerRecord<>(TOPIC, stock. )
+////	    kafkaTemplate.send(producerRecord);
+//        return stockservice.deleteById(_id);
 //}
-        Mono.just(stock)
-        .map(data->
-                {
+     
+  @DeleteMapping
+  @RequestMapping(value = "/DeleteStock")
+  public Mono<Void> delete(@RequestBody Stock stock ) {
+      
 
-                    return stockservice.delete( data).subscribe().toString();
-                    }
-                };
-    }
+      
+      ProducerRecord<Long, Stock> producerRecord = new ProducerRecord<>(TOPIC, stock.get_id(), stock );
+	    kafkaTemplate.send(producerRecord);
+      return stockservice.deleteById(stock.get_id());
+}
+    	
+    
+//    @DeleteMapping(value = "/deletestock/{_id}" , headers = "Accept=application/json; charset=utf-8")
+//    @ResponseStatus( value  = HttpStatus.CREATED, reason="Stock is deleted" )
+//    public Mono<Void> deleteById (@RequestParam(required = true, name = "_id") Long _id) {
+//       
+//        
+//        return Mono.just(stock)
+//        .map(stock->
+//                {
+////                	ProducerRecord<String, EventStock> producerRecord = new ProducerRecord<>(TOPIC, s.get_id(), s);
+////                	kafkaTemplate.send(producerRecord);
+//                    return stockservice.delete( stock).subscribe().toString();
+//
+//                });
+//    }
+//    
+//   
+
+    
+    
+}
     
    
 

@@ -24,4 +24,3 @@ kafka:
   user: producer-user
   password: producer-pwd
 
-schedule-time: 300
