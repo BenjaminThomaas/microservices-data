@@ -32,9 +32,9 @@ public class StockServiceImpl implements IStockService{
 	//Methodes find spéciales
 	
 	@Override
-	public Mono<Stock> searchId(final Long _id) {
+	public Mono<Stock> searchId(final Long id) {
 		// TODO Auto-generated method stub
-		return stockRepo.findById(_id);
+		return stockRepo.findById(id);
 	}
 
 	
@@ -63,9 +63,9 @@ public class StockServiceImpl implements IStockService{
 	}
 
 
-	public Mono<Void> deleteById(final Long _id) {
+	public Mono<Void> deleteById(final Long id) {
 		// TODO Auto-generated method stub
-		return stockRepo.deleteById(_id);
+		return stockRepo.deleteById(id);
 	}
 
 

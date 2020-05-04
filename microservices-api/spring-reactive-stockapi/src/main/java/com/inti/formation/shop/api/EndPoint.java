@@ -4,8 +4,11 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -77,7 +80,7 @@ public class EndPoint extends KafkaConfiguration{
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Stock is registered" )
     public Mono<String> create(@RequestBody StockRequest stock) {
         // Vérification des paramètres
-        if( ObjectUtils.anyNotNull(stock)  && !ObjectUtils.allNotNull(stock.get_id(), stock.getMagasin(), stock.getDate(), stock.getIdproduct())){
+        if( ObjectUtils.anyNotNull(stock)  && !ObjectUtils.allNotNull(stock.getId(), stock.getMagasin(), stock.getDate(), stock.getIdproduct())){
             log.error("Validation error: one of attributes is not found");
             return Mono.error(new ValidationParameterException("(Validation error message): one of attributes is not found" ));
         }
@@ -107,16 +110,15 @@ public class EndPoint extends KafkaConfiguration{
     
     
     @GetMapping
-    @RequestMapping(value = "/actives/{date}")
-
+    @RequestMapping(value = "/actives")
     public Flux<Stock> getActivesByDate(@RequestParam(required = true, name = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZ") Date date ) {
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") Date date ) {
         log.info("Searching  {} ",date );
-        return stockservice.searchActiveByDate(date)
+        return stockservice.searchActiveByDate(date);
 
                 // uses of doNext
 
-                .doOnNext(stock -> log.info(stock.getDate()+ " is found"));
+//                .doOnNext(stock -> log.info(stock.getDate()+ " is found"));
 
     }
     
@@ -153,12 +155,16 @@ public class EndPoint extends KafkaConfiguration{
   @DeleteMapping
   @RequestMapping(value = "/DeleteStock")
   public Mono<Void> delete(@RequestBody Stock stock ) {
+	  Date localDate = new Date();
+      stock.setDatesupp(localDate);
+ProducerRecord<Long, Stock> producerRecord = new ProducerRecord<>(TOPIC, stock.getId(), stock );
+kafkaTemplate.send(producerRecord);
       
-
-      
-      ProducerRecord<Long, Stock> producerRecord = new ProducerRecord<>(TOPIC, stock.get_id(), stock );
-	    kafkaTemplate.send(producerRecord);
-      return stockservice.deleteById(stock.get_id());
+     
+      return stockservice.deleteById(stock.getId());
+    		 
+    		  
+       
 }
     	
     

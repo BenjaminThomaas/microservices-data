@@ -9,13 +9,13 @@ public interface IStockService {
 
 	Mono<Stock> register(Stock stock);
 
-	public Mono<Stock> searchId(Long _id);
+	public Mono<Stock> searchId(Long id);
 
 	public Flux<Stock> getStocks();
 
 	public Mono<Stock> update(Stock s);
 	
-	public Mono<Void> deleteById (Long _id);
+	public Mono<Void> deleteById (Long id);
 	
 	public Mono<Void> delete(Stock stock);
 
