@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: spring-reactive-stockapi
+  data:
+    elasticsearch:
+      cluster-name: projet-stock
+      cluster-nodes: localhost:9300
+
+kafka:
+  boot-server: 192.168.99.100:29092
+  topic-name:  stocksupp-v1
+  consumer-group-id: formationKafka-projetstock-consumer-groupeId  #très imp pour le consumer
+  client-id: formationKafka-projetstock-consumer  #identifiant du consumer chq consumer a un id 
+#applicationId = client-id désigne 
+server:
+  port: 8084
+  
+  
+  
