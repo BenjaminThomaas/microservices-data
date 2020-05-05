@@ -138,19 +138,8 @@ public class EndPoint extends KafkaConfiguration{
     }
     
     
-//    @DeleteMapping
-//    @RequestMapping(value = "/DeleteStock/{_id}")
-//    public Mono<Void> deleteBy_id(@RequestParam(required = true, name = "_id") Long _id ) {
-//        log.info("Searching  {} ",_id );
-//        
-//        Mono <EventStock> stock = stockservice.searchId(_id);
-//
-//                // uses of doNext
-//        
-//        ProducerRecord<Long, Stock> producerRecord = new ProducerRecord<>(TOPIC, stock. )
-////	    kafkaTemplate.send(producerRecord);
-//        return stockservice.deleteById(_id);
-//}
+
+
      
   @DeleteMapping
   @RequestMapping(value = "/DeleteStock")
@@ -168,22 +157,7 @@ kafkaTemplate.send(producerRecord);
 }
     	
     
-//    @DeleteMapping(value = "/deletestock/{_id}" , headers = "Accept=application/json; charset=utf-8")
-//    @ResponseStatus( value  = HttpStatus.CREATED, reason="Stock is deleted" )
-//    public Mono<Void> deleteById (@RequestParam(required = true, name = "_id") Long _id) {
-//       
-//        
-//        return Mono.just(stock)
-//        .map(stock->
-//                {
-////                	ProducerRecord<String, EventStock> producerRecord = new ProducerRecord<>(TOPIC, s.get_id(), s);
-////                	kafkaTemplate.send(producerRecord);
-//                    return stockservice.delete( stock).subscribe().toString();
-//
-//                });
-//    }
-//    
-//   
+
 
     
     

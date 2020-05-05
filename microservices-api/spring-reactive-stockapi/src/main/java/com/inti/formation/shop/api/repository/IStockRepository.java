@@ -19,18 +19,12 @@ public interface IStockRepository extends ReactiveMongoRepository<Stock, Long>{
 	
 	Flux<Stock> findByMagasin(String magasin);
 	
-	
-//	@Query(value= "{'$and' : [ {'active':'true'}, {'date':{$gte: ?0}}]}")
-//	Flux<Stock> searchActifByDate (final boolean active, final Date date);
-//	
+
 	
 	@Query("{ 'date' : {$gte:?0},'active':true }")
     Flux<Stock> searchActifByDate(Date date);
 	
-//	Mono<Stock> deleteBy_idstock (Long _idstock);
-//	Mono<Stock> findBy_idstock (Long _idstock);
-	
-	
+
 	
 	
 }
