@@ -46,7 +46,7 @@ public class StockServiceImpl implements IStockService{
 	
 	public Flux<Stock> searchActiveByDate ( final Date date) {
 		
-		return stockRepo.searchActifByDate(true, date);
+		return stockRepo.searchActifByDate(date);
 	}
 	
 	

@@ -112,7 +112,7 @@ public class EndPoint extends KafkaConfiguration{
     @GetMapping
     @RequestMapping(value = "/actives")
     public Flux<Stock> getActivesByDate(@RequestParam(required = true, name = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") Date date ) {
+    @DateTimeFormat(pattern= "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") Date date ) {
         log.info("Searching  {} ",date );
         return stockservice.searchActiveByDate(date);
 
